@@ -17,7 +17,6 @@
     "clean": "rm -rf ./dist && mkdir dist",
     "scss": "node-sass --output-style compressed -o dist/css src/scss --source-map-embed dist",
     "autoprefixer": "postcss -u autoprefixer --autoprefixer.browsers '> 5%, ie 9' -r dist/css/*",
-
     "imagemin": "imagemin src/images dist/images -p",
 
     "lint": "npm run lint:eslint && npm run lint:sass",
@@ -29,6 +28,8 @@
     "build": "npm run build:css && npm run build:images",
     "build:css": "npm run scss && npm run autoprefixer",
     "build:images": "npm run imagemin",
+
+    "deploy": "gh-pages -d dist",
 
     "watch:css": "onchange 'src/scss/*.scss' -- npm run build:css",
 
@@ -50,7 +51,7 @@
     "autoprefixer": "6.3.3",
     "browser-sync": "2.11.1",
     "eslint": "2.2.0",
-    "gh-pages": "^0.11.0",
+    "gh-pages": "0.11.0",
     "imagemin-cli": "2.1.0",
     "node-sass": "3.4.2",
     "onchange": "2.0.0",
