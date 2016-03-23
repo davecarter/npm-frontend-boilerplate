@@ -2,8 +2,29 @@
 
 body {
   background-color: $bg-main;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background: url(../images/sui-engineers.png) no-repeat;
+  background-size: cover;
+  padding: 8em 4em;
 
   h1 {
-    margin: 0;
+    color: $c-lightest;
+    font-size: 5em;
+    font-weight: bolder;
+    letter-spacing: -5px;
+    line-height: .9;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 $c-darkest;
+  }
+
+  h3 {
+    color: $c-lightest;
+    margin: 5px;
+    text-shadow: 2px 2px 0 $c-darkest;
   }
 }

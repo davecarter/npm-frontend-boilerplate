@@ -1,16 +1,12 @@
 {
-  "name": "frontend-school-project",
-  "version": "1.0.0",
-  "description": "Frontend.school Website",
+  "name": "npm-frontend-boilerplate",
+  "version": "0.0.1",
+  "description": "A NPM based boilerplate to easily setup a frontend development environment",
+  "main": "dist/index.html",
   "keywords": [],
   "author": "David Garcia",
   "license": "ISC",
   "contributors": [
-    {
-      "name": "Daniel de la Cruz",
-      "email": "danidelacruz@gmail.com",
-      "url": "https://github.com/danderu"
-    },
     {
       "name": "David Garcia",
       "email": "dave74@gmail.com",
@@ -18,30 +14,25 @@
     }
   ],
   "scripts": {
-    "scss": "node-sass --output-style compressed -o dist/css src/scss",
+    "clean": "rm -rf ./dist && mkdir dist",
+    "scss": "node-sass --output-style compressed -o dist/css src/scss --source-map-embed dist",
     "autoprefixer": "postcss -u autoprefixer --autoprefixer.browsers '> 5%, ie 9' -r dist/css/*",
-    "uglify": "mkdir -p dist/js && uglifyjs src/js/*.js -m -o dist/js/app.js && uglifyjs src/js/*.js -m -c -o dist/js/app.min.js",
-    "imagemin": "imagemin src/images dist/images -p",
 
-    "icons": "svgo -f src/images/icons && mkdir -p dist/images && svg-sprite-generate -d src/images/icons -o dist/images/icons.svg",
+    "imagemin": "imagemin src/images dist/images -p",
 
     "lint": "npm run lint:eslint && npm run lint:sass",
     "lint:eslint": "eslint --ext=.jsx --ext=js ./src/ ./test/ ./docs/",
     "lint:sass": "scss-lint src/",
 
-    "serve": "browser-sync start --server --files 'dist/css/*.css, dist/js/*.js'",
+    "serve": "browser-sync start --server dist --files dist",
 
+    "build": "npm run build:css && npm run build:images",
     "build:css": "npm run scss && npm run autoprefixer",
-    "build:images": "npm run imagemin && npm run icons",
-    "build:js": "npm run lint && npm run uglify",
-    "build:html": "echo 'updated html' && npm run serve",
-    "deploy": "npm run build:css && npm run build:js && npm run build:images",
+    "build:images": "npm run imagemin",
 
     "watch:css": "onchange 'src/scss/*.scss' -- npm run build:css",
-    "watch:js": "onchange 'src/js/*.js' -- npm run build:js",
-    "watch:html": "onchange '*.html' -- npm run build:html",
 
-    "dev": "parallelshell 'npm run serve' 'npm run watch:css' 'npm run watch:js' 'npm run watch:html'",
+    "dev": "npm run build && parallelshell 'npm run serve' 'npm run watch:css'",
     "postinstall": "npm run dev"
   },
   "pre-commit": [
@@ -59,6 +50,7 @@
     "autoprefixer": "6.3.3",
     "browser-sync": "2.11.1",
     "eslint": "2.2.0",
+    "gh-pages": "^0.11.0",
     "imagemin-cli": "2.1.0",
     "node-sass": "3.4.2",
     "onchange": "2.0.0",
